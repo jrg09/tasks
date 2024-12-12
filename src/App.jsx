@@ -9,16 +9,12 @@ function App() {
     const [tasks, setTasks] = useState([]);
     const { VITE_API_URL } = getEnvironments();
 
-    console.log({ VITE_API_URL });
-
     const getTasks = async () => {
         const response = await fetch(`${VITE_API_URL}/api/v1/tasks`);
         const data = await response.json();
-        console.log(data);
 
         if (data.ok) {
-            const { tasks } = data;
-            setTasks(tasks);
+            setTasks(data.tasks);
         }
     };
 
@@ -27,8 +23,6 @@ function App() {
     }, []);
 
     const handleToggleTask = async (id) => {
-        console.log(id);
-
         const task = tasks.find((task) => task._id === id);
 
         const response = await fetch(`${VITE_API_URL}/api/v1/tasks/${id}`, {
@@ -36,7 +30,6 @@ function App() {
             body: JSON.stringify({ done: !task.done }),
         });
         const data = await response.json();
-        console.log(data);
 
         //Update the task in the state
         setTasks(tasks.map((task) => (task._id === id ? { ...task, done: !task.done } : task)));
@@ -44,7 +37,7 @@ function App() {
 
     const handleAddTask = async (task) => {
         delete task.id;
-        console.log(JSON.stringify(task));
+
         const response = await fetch(`${VITE_API_URL}/api/v1/tasks`, {
             method: "POST",
             headers: {
@@ -54,22 +47,17 @@ function App() {
             body: JSON.stringify(task),
         });
         const data = await response.json();
-        console.log(data);
 
         if (data.ok) {
-            //update the state
             setTasks([...tasks, data.task]);
         }
     };
 
     const handleDeleteTask = async (id) => {
-        console.log(id);
-
         const response = await fetch(`${VITE_API_URL}/api/v1/tasks/${id}`, {
             method: "DELETE",
         });
         const data = await response.json();
-        console.log(data);
 
         if (data.ok) {
             setTasks(tasks.filter((task) => task._id !== id));

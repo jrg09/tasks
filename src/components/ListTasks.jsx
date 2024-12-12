@@ -7,13 +7,12 @@ export const ListTasks = ({ tasks, handleToggleTask, handleDeleteTask }) => {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        const categories = [...new Set(tasks.map((task) => task.category))];
+        const categories = [...new Set(tasks.map((task) => task.category))].sort();
         setCategories(categories);
     }, [tasks]);
 
     useEffect(() => {
-        let savedKey = localStorage.getItem("key");
-        console.log({ savedKey });
+        const savedKey = localStorage.getItem("key");
         setKey(!!savedKey ? savedKey : categories[0]);
     }, []);
 

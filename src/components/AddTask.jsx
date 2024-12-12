@@ -9,7 +9,31 @@ export const AddTask = ({ handleAddTask }) => {
 
         if (taskName.length < 2) return;
 
-        const newTask = { id: new Date().getTime(), name: taskName, done: false };
+        let category = localStorage.getItem("key") || "Todos";
+
+        const datosTask = taskName.split(/[|\/]/);
+        const name = datosTask[0];
+
+        if (datosTask.length > 1) {
+            category = datosTask[1];
+
+            switch (datosTask[1]) {
+                case "T":
+                    category = "Todos";
+                    break;
+                case "D":
+                    category = "Diaria";
+                    break;
+                case "M":
+                    category = "Mensual";
+                    break;
+                default:
+                    category = "Todos";
+                    break;
+            }
+        }
+
+        const newTask = { id: new Date().getTime(), name, category };
 
         handleAddTask(newTask);
         onResetForm();
