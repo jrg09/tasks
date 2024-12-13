@@ -1,5 +1,3 @@
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import { AddTask } from "./components/AddTask";
 import { ListTasks } from "./components/ListTasks";
 import { useEffect, useState } from "react";
