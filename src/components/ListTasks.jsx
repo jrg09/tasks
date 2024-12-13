@@ -23,10 +23,14 @@ export const ListTasks = ({ tasks, handleToggleTask, handleDeleteTask }) => {
 
     return (
         <>
-            <Tabs id="controlled-tab-example" activeKey={key} onSelect={(k) => onSetKey(k)} className="mb-3 task-panel" variant="underline">
+            <Tabs activeKey={key} onSelect={(k) => onSetKey(k)} className="mb-3 task-panel" variant="underline">
                 {categories.map((category, index) => {
                     return (
-                        <Tab eventKey={category} title={category} variant="underline" key={index}>
+                        <Tab
+                            eventKey={category}
+                            title={`${category} (${tasks.filter((task) => task.category === category && !task.done).length})`}
+                            variant="underline"
+                            key={index}>
                             <ul className="list-group mb-0">
                                 {tasks
                                     .filter((task) => task.category === category)

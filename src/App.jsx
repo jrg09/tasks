@@ -74,7 +74,7 @@ function App() {
             <section className="vh-100 gradient-custom">
                 <div className="container py-5">
                     <div className="row d-flex justify-content-center align-items-center h-100">
-                        <div className="col col-xl-12">
+                        <div className="col col-xl-8">
                             <div className="card">
                                 <div className="card-body p-4">
                                     <AddTask handleAddTask={handleAddTask} />
