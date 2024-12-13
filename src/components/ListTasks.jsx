@@ -30,8 +30,7 @@ export const ListTasks = ({ tasks, handleToggleTask, handleDeleteTask }) => {
                             <ul className="list-group mb-0">
                                 {tasks
                                     .filter((task) => task.category === category)
-                                    .sort((a, b) => a.done - b.done)
-                                    .sort((a, b) => new Date(a.completed) - new Date(b.completed))
+                                    .sort((a, b) => a.done - b.done || new Date(b.updatedAt) - new Date(a.updatedAt))
                                     .map((task, index) => {
                                         return (
                                             <TaskItem

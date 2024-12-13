@@ -24,15 +24,22 @@ function App() {
 
     const handleToggleTask = async (id) => {
         const task = tasks.find((task) => task._id === id);
+        const newStatus = !task.done;
+        task.updatedAt = new Date().toISOString();
+
+        //Update the task in the state
+        setTasks(tasks.map((task) => (task._id === id ? { ...task, done: newStatus } : task)));
 
         const response = await fetch(`${VITE_API_URL}/api/v1/tasks/${id}`, {
             method: "PATCH",
-            body: JSON.stringify({ done: !task.done }),
+            body: JSON.stringify({ done: newStatus }),
         });
+
         const data = await response.json();
 
-        //Update the task in the state
-        setTasks(tasks.map((task) => (task._id === id ? { ...task, done: !task.done } : task)));
+        if (!data.ok) {
+            setTasks(tasks.map((task) => (task._id === id ? { ...task, done: !newStatus } : task)));
+        }
     };
 
     const handleAddTask = async (task) => {
@@ -49,7 +56,7 @@ function App() {
         const data = await response.json();
 
         if (data.ok) {
-            setTasks([...tasks, data.task]);
+            setTasks([data.task, ...tasks]);
         }
     };
 

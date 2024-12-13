@@ -15,21 +15,23 @@ export const AddTask = ({ handleAddTask }) => {
         const name = datosTask[0];
 
         if (datosTask.length > 1) {
-            category = datosTask[1];
+            category = datosTask[1].trim();
 
-            switch (datosTask[1]) {
-                case "T":
-                    category = "Todos";
-                    break;
-                case "D":
-                    category = "Diaria";
-                    break;
-                case "M":
-                    category = "Mensual";
-                    break;
-                default:
-                    category = "Todos";
-                    break;
+            if (category.length == 1) {
+                switch (datosTask[1]) {
+                    case "T":
+                        category = "Todos";
+                        break;
+                    case "D":
+                        category = "Diaria";
+                        break;
+                    case "M":
+                        category = "Mensual";
+                        break;
+                    default:
+                        category = "Todos";
+                        break;
+                }
             }
         }
 
