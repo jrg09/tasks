@@ -1,17 +1,17 @@
 .task-panel .nav-link {
-    font-size: 9pt!important;
-    color:darkgray; 
-    text-transform: uppercase;
+  font-size: 9pt !important;
+  color: darkgray;
+  text-transform: uppercase;
 }
 
 .task-panel .nav-link.active {
-    font-size: 9pt!important;
-    color: var(--bs-blue);
-    text-transform: uppercase;
+  font-size: 9pt !important;
+  color: var(--bs-blue);
+  text-transform: uppercase;
 }
 
 .task-completed {
-    text-decoration: line-through!important;
-    color: darkgray!important;
-    font-style: italic!important;
+  text-decoration: line-through !important;
+  color: darkgray !important;
+  font-style: italic !important;
 }
