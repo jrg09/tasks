@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Container, Nav, Navbar, NavDropdown, NavLink } from "react-bootstrap";
 
 export const TaskNavbar = ({ types }) => {
   console.log({ types });
@@ -20,6 +20,7 @@ export const TaskNavbar = ({ types }) => {
                         {type}
                       </Nav.Link>
                     ))}
+                    <NavLink>Gastos</NavLink>
                   </Nav>
                   <Nav.Link href="#link" className="justify-content-end text-light">
                     @jorge
