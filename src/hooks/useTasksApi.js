@@ -15,6 +15,7 @@ export const useTasksApi = () => {
     const data = await response.json();
 
     if (data.ok) {
+      console.log(data.tasks.length);
       setTasks(data.tasks);
     }
   };
@@ -44,6 +45,8 @@ export const useTasksApi = () => {
 
   const addTask = async (task) => {
     delete task.id;
+
+    console.log({task});
 
     const response = await fetch(`${VITE_API_URL}/api/v1/tasks`, {
       method: "POST",
