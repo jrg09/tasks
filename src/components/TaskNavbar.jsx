@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, NavLink } from "react-router-dom";
 
 export const TaskNavbar = ({ types }) => {
   return (
@@ -25,6 +25,7 @@ export const TaskNavbar = ({ types }) => {
                   {type}
                 </NavLink>
               ))}
+              <NavLink>Gastos</NavLink>
             </ul>
           </div>
         </div>

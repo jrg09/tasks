@@ -1,6 +1,9 @@
 import { useEffect, useContext, useState } from "react";
 import { AddTask, ListTasks, TaskNavbar } from "./components/";
 import { useTasksApi } from "./hooks/useTasksApi";
+import { AddGasto } from "./gastos/AddGasto";
+import { ListGastos } from "./gastos/ListGastos";
+import { useGastosApi } from "./hooks/useGastosApi";
 import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import TypeListTasks from "./components/TypeListTasks";
 import { UserProvider } from "./context/UserProvider";
@@ -8,6 +11,7 @@ import { UserContext } from "./context/userContext";
 
 function App() {
   const { tasks, getTasks, toggleTask, addTask, deleteTask } = useTasksApi();
+  const { gastos, getGastos, toggleGasto, addGasto, deleteGasto } = useGastosApi();
   const [typesCategories, setTypes] = useState([]);
 
   useEffect(() => {
