@@ -1,13 +1,10 @@
-import { useEffect, useContext, useState } from "react";
-import { AddTask, ListTasks, TaskNavbar } from "./components/";
+import { useEffect, useState } from "react";
+import { TaskNavbar } from "./components/";
 import { useTasksApi } from "./hooks/useTasksApi";
-import { AddGasto } from "./gastos/AddGasto";
-import { ListGastos } from "./gastos/ListGastos";
 import { useGastosApi } from "./hooks/useGastosApi";
-import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import TypeListTasks from "./components/TypeListTasks";
-import { UserProvider } from "./context/UserProvider";
-import { UserContext } from "./context/userContext";
+import { Route, Routes } from "react-router-dom";
+import { TypeListTasks } from "./components/TypeListTasks";
+import { TypeGastosList } from "./gastos/TypeGastosList";
 
 function App() {
   const { tasks, getTasks, toggleTask, addTask, deleteTask } = useTasksApi();
@@ -16,6 +13,7 @@ function App() {
 
   useEffect(() => {
     getTasks();
+    getGastos();
   }, []);
 
   useEffect(() => {
@@ -34,7 +32,6 @@ function App() {
               path={`/${type.toLowerCase()}`}
               element={
                 <TypeListTasks
-                  typeCategory={type}
                   tasks={tasks.filter((task) => task.type === type)}
                   toggleTask={toggleTask}
                   addTask={addTask}
@@ -45,7 +42,25 @@ function App() {
           );
         })}
 
-        <Route path="/*" element={<TypeListTasks typeCategory="Trabajo" tasks={tasks.filter((task) => task.type === "Trabajo")} />} />
+        {gastos.length > 0 && (
+          <Route
+            path="/gastos"
+            element={<TypeGastosList gastos={gastos} toggleGasto={toggleGasto} addGasto={addGasto} deleteGasto={deleteGasto} />}
+          />
+        )}
+
+        <Route
+          path="/*"
+          element={
+            <TypeListTasks
+              typeCategory="Trabajo"
+              tasks={tasks.filter((task) => task.type === "Trabajo")}
+              toggleTask={toggleTask}
+              addTask={addTask}
+              deleteTask={deleteTask}
+            />
+          }
+        />
       </Routes>
     </>
   );

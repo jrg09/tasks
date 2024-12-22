@@ -1,7 +1,7 @@
-import { AddTask } from "./AddTask";
-import { ListTasks } from "./ListTasks";
+import { AddGasto } from "./AddGasto";
+import { ListGastos } from "./ListGastos";
 
-export const TypeListTasks = ({ tasks, toggleTask, addTask, deleteTask }) => {
+export const TypeGastosList = ({ gastos, toggleGasto, addGasto, deleteGasto }) => {
   return (
     <section className="vh-100 gradient-custom">
       <div className="container py-3">
@@ -9,8 +9,8 @@ export const TypeListTasks = ({ tasks, toggleTask, addTask, deleteTask }) => {
           <div className="col col-xl-8">
             <div className="card">
               <div className="card-body p-4">
-                <AddTask handleAddTask={addTask} />
-                <ListTasks tasks={tasks} handleToggleTask={toggleTask} handleDeleteTask={deleteTask} />
+                <AddGasto handleAddGasto={addGasto} />
+                <ListGastos gastos={gastos} handleToggleGasto={toggleGasto} handleDeleteGasto={deleteGasto} />
               </div>
             </div>
           </div>

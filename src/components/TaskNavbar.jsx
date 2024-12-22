@@ -1,5 +1,4 @@
-import React from "react";
-import { Link, NavLink, NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export const TaskNavbar = ({ types }) => {
   return (
@@ -16,16 +15,13 @@ export const TaskNavbar = ({ types }) => {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               {types.map((type) => (
-                <NavLink
-                  to={`/${type.toLowerCase()}`}
-                  className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
-                  data-title={type.toLowerCase()}
-                  key={type}
-                >
+                <NavLink to={`/${type.toLowerCase()}`} className="nav-link" data-title={type.toLowerCase()} key={type}>
                   {type}
                 </NavLink>
               ))}
-              <NavLink>Gastos</NavLink>
+              <NavLink to={"/gastos"} className="nav-link">
+                Gastos
+              </NavLink>
             </ul>
           </div>
         </div>

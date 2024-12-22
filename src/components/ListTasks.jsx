@@ -1,9 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Tabs, Tab } from "react-bootstrap";
 import { TaskItem } from "./TaskItem";
-import { UserContext } from "../context/userContext";
 import { useLocation } from "react-router-dom";
-import { use } from "react";
 
 export const ListTasks = ({ tasks, handleToggleTask, handleDeleteTask }) => {
   const [key, setKey] = useState(localStorage.getItem("key") || "Todos");
@@ -14,12 +12,6 @@ export const ListTasks = ({ tasks, handleToggleTask, handleDeleteTask }) => {
     const categories = [...new Set(tasks.map((task) => task.category))].sort();
     setCategories(categories);
   }, [tasks, location.pathname]);
-
-  // useEffect(() => {
-  //   const savedKey = localStorage.getItem("key");
-  //   const inc = categories.includes(savedKey);
-  //   setKey(!!savedKey ? savedKey : categories[0]);
-  // }, []);
 
   const onSetKey = (key) => {
     localStorage.setItem("key", key);

@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useForm } from "../hooks/useForm";
+import { capitalizeFirstLetter } from "../helpers/stringFunctions";
 
 export const AddGasto = ({ handleAddGasto }) => {
   const [msg, setMsg] = useState("");
-  const { gastoName, formState, onInputChange, onResetForm } = useForm({
+  const { gastoName, onInputChange, onResetForm } = useForm({
     gastoName: "",
   });
 
@@ -28,7 +29,12 @@ export const AddGasto = ({ handleAddGasto }) => {
       category = datosGasto[2].trim();
     }
 
-    const newGasto = { id: new Date().getTime(), name, ammount: Number(importe), category };
+    const newGasto = {
+      id: new Date().getTime(),
+      name: capitalizeFirstLetter(name),
+      ammount: Number(importe),
+      category: capitalizeFirstLetter(category),
+    };
     console.log(newGasto);
 
     handleAddGasto(newGasto);

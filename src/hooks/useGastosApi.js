@@ -12,10 +12,9 @@ export const useGastosApi = () => {
       },
     });
 
-    const data = await response.json();
-
-    if (data.ok) {
-      setGastos(data.gastos);
+    if (response.status === 200) {
+      const result = await response.json();
+      setGastos(result.data);
     }
   };
 
@@ -57,7 +56,7 @@ export const useGastosApi = () => {
     const data = await response.json();
 
     if (data.ok) {
-      setGastos([data.gasto, ...gastos]);
+      setGastos([data.payment, ...gastos]);
     }
   };
 
