@@ -2,23 +2,24 @@ import { useContext, useEffect, useState } from "react";
 import { Tabs, Tab } from "react-bootstrap";
 import { TaskItem } from "./TaskItem";
 import { UserContext } from "../context/userContext";
+import { useLocation } from "react-router-dom";
+import { use } from "react";
 
-export const ListTasks = ({ page, tasks, handleToggleTask, handleDeleteTask }) => {
-  const [key, setKey] = useState("Todos");
+export const ListTasks = ({ tasks, handleToggleTask, handleDeleteTask }) => {
+  const [key, setKey] = useState(localStorage.getItem("key") || "Todos");
   const [categories, setCategories] = useState([]);
-
-  // console.log({ page, tasks });
+  const location = useLocation();
 
   useEffect(() => {
-    const categories = [...new Set(tasks.filter((task) => task.type === page).map((task) => task.category))].sort();
-    // console.log(categories);
+    const categories = [...new Set(tasks.map((task) => task.category))].sort();
     setCategories(categories);
-  }, [tasks]);
+  }, [tasks, location.pathname]);
 
-  useEffect(() => {
-    const savedKey = localStorage.getItem("key");
-    setKey(!!savedKey ? savedKey : categories[0]);
-  }, []);
+  // useEffect(() => {
+  //   const savedKey = localStorage.getItem("key");
+  //   const inc = categories.includes(savedKey);
+  //   setKey(!!savedKey ? savedKey : categories[0]);
+  // }, []);
 
   const onSetKey = (key) => {
     localStorage.setItem("key", key);
@@ -41,14 +42,7 @@ export const ListTasks = ({ page, tasks, handleToggleTask, handleDeleteTask }) =
                   .filter((task) => task.category === category)
                   .sort((a, b) => a.done - b.done || new Date(b.updatedAt) - new Date(a.updatedAt))
                   .map((task, index) => {
-                    return (
-                      <TaskItem
-                        key={task._id}
-                        task={task}
-                        handleToggleTask={handleToggleTask}
-                        handleDeleteTask={handleDeleteTask}
-                      />
-                    );
+                    return <TaskItem key={task._id} task={task} handleToggleTask={handleToggleTask} handleDeleteTask={handleDeleteTask} />;
                   })}
               </ul>
             </Tab>

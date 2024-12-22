@@ -7,31 +7,42 @@ import { UserProvider } from "./context/UserProvider";
 import { UserContext } from "./context/userContext";
 
 function App() {
-  const { tasks, getTasks } = useTasksApi();
+  const { tasks, getTasks, toggleTask, addTask, deleteTask } = useTasksApi();
   const [typesCategories, setTypes] = useState([]);
 
   useEffect(() => {
     getTasks();
-
-    if (tasks.length > 0) {
-      const typesCategories = [...new Set(tasks.map((task) => task.type))];
-      console.log(typesCategories);
-      setTypes(typesCategories);
-    }
   }, []);
 
   useEffect(() => {
-    if (tasks.length > 0) {
-      const typesCategories = [...new Set(tasks.map((task) => task.type))];
-      console.log(typesCategories);
-      setTypes(typesCategories);
-    }
+    const typesCategories = [...new Set(tasks.map((task) => task.type))];
+    setTypes(typesCategories);
   }, [tasks]);
 
   return (
     <>
-      <TaskNavbar types={typesCategories} />;
-      <TypeListTasks typeCategory="Trabajo" tasks={tasks} />
+      <TaskNavbar types={typesCategories} />
+      <Routes>
+        {typesCategories.map((type) => {
+          return (
+            <Route
+              key={type}
+              path={`/${type.toLowerCase()}`}
+              element={
+                <TypeListTasks
+                  typeCategory={type}
+                  tasks={tasks.filter((task) => task.type === type)}
+                  toggleTask={toggleTask}
+                  addTask={addTask}
+                  deleteTask={deleteTask}
+                />
+              }
+            />
+          );
+        })}
+
+        <Route path="/*" element={<TypeListTasks typeCategory="Trabajo" tasks={tasks.filter((task) => task.type === "Trabajo")} />} />
+      </Routes>
     </>
   );
 }

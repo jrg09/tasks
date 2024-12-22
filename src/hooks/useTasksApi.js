@@ -21,6 +21,7 @@ export const useTasksApi = () => {
 
   const toggleTask = async (id) => {
     const task = tasks.find((task) => task._id === id);
+    console.log({ tasks, task, id });
     const newStatus = !task.done;
     task.updatedAt = new Date().toISOString();
 
@@ -44,8 +45,6 @@ export const useTasksApi = () => {
 
   const addTask = async (task) => {
     delete task.id;
-
-    console.log({ task });
 
     const response = await fetch(`${VITE_API_URL}/api/v1/tasks`, {
       method: "POST",
