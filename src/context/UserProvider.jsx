@@ -1,9 +1,17 @@
+import { useState } from "react";
 import { UserContext } from "./userContext";
-const user = {
-   userId: 1,
-   type: "",
-   category: "",
-};
+
 export const UserProvider = ({ children }) => {
-   return <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>;
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("userConfig")) || {
+      userId: 1,
+    }
+  );
+
+  const updateUser = (type, category) => {
+    localStorage.setItem("userConfig", JSON.stringify({ ...user, [type]: category }));
+    setUser((user) => ({ ...user, [type]: category }));
+  };
+
+  return <UserContext.Provider value={{ user, updateUser }}>{children}</UserContext.Provider>;
 };

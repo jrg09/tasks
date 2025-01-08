@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Tabs, Tab } from "react-bootstrap";
 import { GastoItem } from "./GastoItem";
 import { useLocation } from "react-router-dom";
 import { formatCurrency } from "../helpers/stringFunctions";
+import { UserContext } from "../context/userContext";
 
 export const ListGastos = ({ gastos, handleToggleGasto, handleDeleteGasto }) => {
   const [key, setKey] = useState(localStorage.getItem("key") || "Todos");
   const [categories, setCategories] = useState([]);
   const location = useLocation();
+  const { user, updateUser } = useContext(UserContext);
 
   useEffect(() => {
     const categories = [...new Set(gastos.map((task) => task.category))].sort();
@@ -22,14 +24,18 @@ export const ListGastos = ({ gastos, handleToggleGasto, handleDeleteGasto }) => 
       list.push({ category, presupuesto, gastado, pendiente });
     });
 
-    console.log(list);
-
     setCategories(list);
   }, [gastos, location.pathname]);
 
+  useEffect(() => {
+    if (gastos.length > 0) {
+      setKey(user["Gastos"]);
+    }
+  }, [location.pathname]);
+
   const onSetKey = (key) => {
-    localStorage.setItem("key", key);
     setKey(key);
+    updateUser("Gastos", key);
   };
 
   const getCategoryPresupuesto = (category) => {

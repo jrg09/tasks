@@ -15,3 +15,7 @@
   color: darkgray !important;
   font-style: italic !important;
 }
+
+.nav-panel .nav-link.active {
+  color: var(--bs-blue);
+}
